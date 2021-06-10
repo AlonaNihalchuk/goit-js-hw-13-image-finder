@@ -1,16 +1,36 @@
 import './sass/main.scss';
 import getRefs from './js/refs';
 import photoCardTpl from './templates/photo-card.hbs';
-import API from './js/apiService';
+import PhotoApiService from './js/apiService';
 const refs = getRefs();
 
-// refs.galleryList.innerHTML;
-// console.log(refs.body);
+console.log(refs.loadMoreBtn);
+const photoApiService = new PhotoApiService();
 
 refs.searchForm.addEventListener('submit', onFormSubmit);
+refs.loadMoreBtn.addEventListener('click', onBtnClick);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  const searchPhoto = e.currentTarget.elements.query.value.trim();
-  API.fetchPhotoCards(searchPhoto).then(console.log);
+  clearPhotoGallery();
+
+  photoApiService.searchQuery = e.currentTarget.elements.query.value.trim();
+  photoApiService.resetPage();
+  photoApiService.fetchPhotoCards().then(renderPhotoCard);
+}
+function renderPhotoCard(hits) {
+  refs.galleryList.insertAdjacentHTML('beforeend', photoCardTpl(hits));
+}
+function onBtnClick() {
+  photoApiService.fetchPhotoCards().then(renderPhotoCard);
+
+  const element = document.getElementById('search-gallery');
+  console.log(element);
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
+}
+function clearPhotoGallery() {
+  refs.galleryList.innerHTML = '';
 }
