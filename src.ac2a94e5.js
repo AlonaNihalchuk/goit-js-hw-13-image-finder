@@ -13,4 +13,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var e=n(require("./js/refs")),t=n(require("./templates/photo-card.hbs")),r=n(require("./js/apiService"));function n(e){return e&&e.__esModule?e:{default:e}}const o=(0,e.default)();console.log(o.loadMoreBtn);const s=new r.default;function a(e){e.preventDefault(),i(),s.searchQuery=e.currentTarget.elements.query.value.trim(),s.resetPage(),s.fetchPhotoCards().then(c)}function c(e){o.galleryList.insertAdjacentHTML("beforeend",(0,t.default)(e))}function l(){s.fetchPhotoCards().then(c);const e=document.getElementById("search-gallery");console.log(e),e.scrollIntoView({behavior:"smooth",block:"end"})}function i(){o.galleryList.innerHTML=""}o.searchForm.addEventListener("submit",a),o.loadMoreBtn.addEventListener("click",l);
 },{"./sass/main.scss":"clu1","./js/refs":"VyiV","./templates/photo-card.hbs":"Dymv","./js/apiService":"eQwa"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-13-image-finder/src.7be564a8.js.map
+//# sourceMappingURL=/goit-js-hw-13-image-finder/src.ac2a94e5.js.map
