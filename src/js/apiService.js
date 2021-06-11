@@ -11,15 +11,22 @@ export default class PhotoApiService {
     this.page = 1;
     this.perPage = 12;
   }
-  fetchPhotoCards(name) {
-    return fetch(
+  async fetchPhotoCards(name) {
+    const response = await fetch(
       `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=${this.perPage}&key=${API_KEY}`,
-    )
-      .then(response => response.json())
-      .then(({ hits }) => {
-        this.increment();
-        return hits;
-      });
+    );
+    const { hits } = await response.json();
+    this.increment();
+    return hits;
+
+    // return fetch(
+    //   `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=${this.perPage}&key=${API_KEY}`,
+    // )
+    //   .then(response => response.json())
+    //   .then(({ hits }) => {
+    //     this.increment();
+    //     return hits;
+    //   });
   }
   increment() {
     this.page += 1;

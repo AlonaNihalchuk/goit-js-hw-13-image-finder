@@ -10,26 +10,38 @@ const photoApiService = new PhotoApiService();
 refs.searchForm.addEventListener('submit', onFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onBtnClick);
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
   e.preventDefault();
   clearPhotoGallery();
 
   photoApiService.searchQuery = e.currentTarget.elements.query.value.trim();
   photoApiService.resetPage();
-  photoApiService.fetchPhotoCards().then(renderPhotoCard);
+  if (photoApiService.searchQuery !== '') {
+    const hits = await photoApiService.fetchPhotoCards();
+    const renderCard = await renderPhotoCard(hits);
+    // photoApiService.fetchPhotoCards().then(renderPhotoCard);
+  } else {
+    alert('something went wrong');
+  }
 }
 function renderPhotoCard(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', photoCardTpl(hits));
 }
-function onBtnClick() {
-  photoApiService.fetchPhotoCards().then(renderPhotoCard);
+async function onBtnClick() {
+  if (photoApiService.searchQuery !== '') {
+    const hits = await photoApiService.fetchPhotoCards();
+    const renderCard = await renderPhotoCard(hits);
+    // photoApiService.fetchPhotoCards().then(renderPhotoCard);
 
-  const element = document.getElementById('search-gallery');
-  console.log(element);
-  element.scrollIntoView({
-    behavior: 'smooth',
-    block: 'end',
-  });
+    const element = document.getElementById('search-gallery');
+    console.log(element);
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+    });
+  } else {
+    alert('something went wrong');
+  }
 }
 function clearPhotoGallery() {
   refs.galleryList.innerHTML = '';
