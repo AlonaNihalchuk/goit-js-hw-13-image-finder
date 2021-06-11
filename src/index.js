@@ -28,7 +28,7 @@ function renderPhotoCard(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', photoCardTpl(hits));
 }
 async function onBtnClick() {
-  if (photoApiService.searchQuery !== '') {
+  if (photoApiService.searchQuery === '') {
     const hits = await photoApiService.fetchPhotoCards();
     const renderCard = await renderPhotoCard(hits);
     // photoApiService.fetchPhotoCards().then(renderPhotoCard);
