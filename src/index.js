@@ -28,20 +28,16 @@ function renderPhotoCard(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', photoCardTpl(hits));
 }
 async function onBtnClick() {
-  if (photoApiService.searchQuery === '') {
-    const hits = await photoApiService.fetchPhotoCards();
-    const renderCard = await renderPhotoCard(hits);
-    // photoApiService.fetchPhotoCards().then(renderPhotoCard);
+  const hits = await photoApiService.fetchPhotoCards();
+  const renderCard = await renderPhotoCard(hits);
+  // photoApiService.fetchPhotoCards().then(renderPhotoCard);
 
-    const element = document.getElementById('search-gallery');
-    console.log(element);
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
-  } else {
-    alert('something went wrong');
-  }
+  const element = document.getElementById('search-gallery');
+  console.log(element);
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
 }
 function clearPhotoGallery() {
   refs.galleryList.innerHTML = '';
