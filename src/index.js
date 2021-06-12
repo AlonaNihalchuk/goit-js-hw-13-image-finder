@@ -4,12 +4,12 @@ import photoCardTpl from './templates/photo-card.hbs';
 import PhotoApiService from './js/apiService';
 const refs = getRefs();
 
-console.log(refs.loadMoreBtn);
 const photoApiService = new PhotoApiService();
 
 refs.searchForm.addEventListener('submit', onFormSubmit);
 refs.loadMoreBtn.addEventListener('click', onBtnClick);
 
+// при новом запросе очищается галерея clearPhotoGallery() и сбрасывается страница photoApiService.resetPage(), делается запрос по новому слову, изображения не накапливаются, результат отображается в самом верху
 async function onFormSubmit(e) {
   e.preventDefault();
   clearPhotoGallery();
@@ -18,7 +18,7 @@ async function onFormSubmit(e) {
   photoApiService.resetPage();
   if (photoApiService.searchQuery !== '') {
     const hits = await photoApiService.fetchPhotoCards();
-    const renderCard = await renderPhotoCard(hits);
+    renderPhotoCard(hits);
     // photoApiService.fetchPhotoCards().then(renderPhotoCard);
   } else {
     alert('something went wrong');
@@ -29,11 +29,10 @@ function renderPhotoCard(hits) {
 }
 async function onBtnClick() {
   const hits = await photoApiService.fetchPhotoCards();
-  const renderCard = await renderPhotoCard(hits);
+  renderPhotoCard(hits);
   // photoApiService.fetchPhotoCards().then(renderPhotoCard);
 
   const element = document.getElementById('search-gallery');
-  console.log(element);
   element.scrollIntoView({
     behavior: 'smooth',
     block: 'end',

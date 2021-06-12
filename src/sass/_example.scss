@@ -43,7 +43,7 @@ ul {
 }
 
 .gallery-item {
-  height: 450px;
+  height: 350px;
   overflow: hidden;
 }
 .gallery img {
@@ -53,15 +53,23 @@ ul {
   object-fit: cover;
 }
 .search-form {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-// .material-icons.md-24 {
-//   font-size: 24px;
-// }
+.btn-search {
+  margin-left: 5px;
+}
 
 .stats {
   display: flex;
 }
 .stats-item {
   width: 90px;
+}
+
+.btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

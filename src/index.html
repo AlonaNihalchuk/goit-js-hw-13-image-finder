@@ -9,15 +9,23 @@
   </head>
   <body>
     <form class="search-form" id="search-form">
-      <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+      <label for="searchQuery" class="sr-only"></label>
+      <input
+        type="text"
+        name="query"
+        id="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit" class="btn-search">Search</button>
     </form>
-    <button type="button" class="btn" data-action="load-more">
-      <span class="label">Load more</span>
-    </button>
 
     <ul class="gallery" id="search-gallery">
       <!-- Список <li> с карточками изображений -->
     </ul>
+    <button type="button" class="btn" data-action="load-more">
+      <span class="label">Load more</span>
+    </button>
 
     <script src="./index.js"></script>
   </body>
