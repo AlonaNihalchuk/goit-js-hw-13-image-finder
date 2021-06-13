@@ -16,6 +16,7 @@ async function onFormSubmit(e) {
 
   photoApiService.searchQuery = e.currentTarget.elements.query.value.trim();
   photoApiService.resetPage();
+
   if (photoApiService.searchQuery !== '') {
     const hits = await photoApiService.fetchPhotoCards();
     renderPhotoCard(hits);
@@ -26,7 +27,14 @@ async function onFormSubmit(e) {
 }
 function renderPhotoCard(hits) {
   refs.galleryList.insertAdjacentHTML('beforeend', photoCardTpl(hits));
+  if (hits.length >= 12) {
+    refs.loadMoreBtn.classList.remove('is-hidden');
+  }
+  if (hits.length < 12) {
+    refs.loadMoreBtn.classList.add('is-hidden');
+  }
 }
+
 async function onBtnClick() {
   const hits = await photoApiService.fetchPhotoCards();
   renderPhotoCard(hits);
